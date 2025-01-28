@@ -18,7 +18,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 let currentUserId = 1;
-
 let users = [
   { id: 1, name: "Angela", color: "teal" },
   { id: 2, name: "Jack", color: "powderblue" },
@@ -32,11 +31,12 @@ async function checkVisisted() {
   });
   return countries;
 }
-async function getCurrentUser(){
-  const result=await db.query("SELECT * FROM users");
+async function getCurrentUser() {
+  const result = await db.query("SELECT * FROM users");
   users = result.rows;
   return users.find((user) => user.id == currentUserId);
 }
+
 app.get("/", async (req, res) => {
   const countries = await checkVisisted();
   const currentUser = await getCurrentUser();
